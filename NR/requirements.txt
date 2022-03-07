@@ -3,7 +3,6 @@ transforms3d
 tqdm
 opencv-python
 numba
-pycuda
 tensorboardX
 scikit-image
 trimesh~=3.9.18
