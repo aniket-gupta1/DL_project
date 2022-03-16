@@ -262,7 +262,7 @@ if __name__ == "__main__":
     all_proc = args.n_proc * args.n_gpu
 
     ray.init(num_cpus=all_proc * (args.num_workers + 1), num_gpus=args.n_gpu)
-
+    print(f"Total available GPUs: {args.n_gpu}")
     if args.dataset == 'scannet':
         if not args.test:
             args.data_path = os.path.join(args.data_path, 'scans_uncomp')
