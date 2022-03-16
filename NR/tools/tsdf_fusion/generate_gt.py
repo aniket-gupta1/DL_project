@@ -265,9 +265,9 @@ if __name__ == "__main__":
 
     if args.dataset == 'scannet':
         if not args.test:
-            args.data_path = os.path.join(args.data_path, 'scans')
+            args.data_path = os.path.join(args.data_path, 'scans_uncomp')
         else:
-            args.data_path = os.path.join(args.data_path, 'scans_test')
+            args.data_path = os.path.join(args.data_path, 'scans_uncomp_test')
         files = sorted(os.listdir(args.data_path))
     else:
         raise NameError('error!')
