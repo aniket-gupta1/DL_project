@@ -12,8 +12,6 @@ from tools.simple_loader import *
 
 torch.multiprocessing.set_sharing_strategy('file_system')
 
-
-
 def parse_args():
     parser = argparse.ArgumentParser(description='Fuse ground truth tsdf')
     parser.add_argument("--dataset", default='scannet')
@@ -34,7 +32,7 @@ def parse_args():
     parser.add_argument('--min_distance', default=0.1, type=float)
 
     # ray multi processes
-    parser.add_argument('--n_proc', type=int, default=16, help='#processes launched to process scenes.')
+    parser.add_argument('--n_proc', type=int, default=1, help='#processes launched to process scenes.')
     parser.add_argument('--n_gpu', type=int, default=1, help='#number of gpus')
     parser.add_argument('--num_workers', type=int, default=8)
     parser.add_argument('--loader_num_workers', type=int, default=8)
@@ -261,8 +259,11 @@ def generate_pkl(args):
 if __name__ == "__main__":
     all_proc = args.n_proc * args.n_gpu
     print(f"Total available GPUs: {args.n_gpu}")
+    print(f"Total available CPUs; {all_proc * (args.num_workers + 1)}")
 
     ray.init(num_cpus=all_proc * (args.num_workers + 1), num_gpus=args.n_gpu)
+    print(f"Ray initialized")
+
     if args.dataset == 'scannet':
         if not args.test:
             args.data_path = os.path.join(args.data_path, 'scans_uncomp')
@@ -272,13 +273,16 @@ if __name__ == "__main__":
     else:
         raise NameError('error!')
 
+    print("All files read from the data folder")
     files = split_list(files, all_proc)
 
+    print("Starting Processing of dataset")
     ray_worker_ids = []
     for w_idx in range(all_proc):
         ray_worker_ids.append(process_with_single_worker.remote(args, files[w_idx]))
 
     results = ray.get(ray_worker_ids)
 
+    print("Generating the pickle file")
     if args.dataset == 'scannet':
         generate_pkl(args)
