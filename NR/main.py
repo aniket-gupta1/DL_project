@@ -17,7 +17,7 @@ from models import NeuralRecon
 from config import cfg, update_config
 from datasets.sampler import DistributedSampler
 from ops.comm import *
-
+from torchviz import make_dot
 
 
 def args():
@@ -293,6 +293,16 @@ def test_sample(sample, save_scene=False):
     model.eval()
 
     outputs, loss_dict = model(sample, save_scene)
+    # dot = make_dot(outputs, params=dict(model.named_parameters()))
+    # dot.format = 'png'
+    # dot.render("model")
+    #
+    logger.info("==============================================================================================")
+    # print("File saved. Abort now!")
+    logger.info(sample)
+    logger.info(len(sample))
+    logger.info(sample['imgs'].shape)
+    logger.info("==============================================================================================")
     loss = loss_dict['total_loss']
 
     return tensor2float(loss), tensor2float(loss_dict), outputs

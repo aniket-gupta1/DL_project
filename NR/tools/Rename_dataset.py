@@ -1,7 +1,7 @@
 import os
 import sys
 
-filepath = "/home/gupta.anik/ScanNet/scans_uncomp_test/"
+filepath = "/home/gupta.anik/ScanNet/scans_uncomp/"
 folderlist = ["color", "depth", "pose"]
 
 if __name__=="__main_":
