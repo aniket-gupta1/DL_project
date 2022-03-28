@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="xfer.discovery.neu.edu" id="bd965e19-dcad-47fa-953e-6668417b4a1c" port="22" customName="Discovery" nameFormat="CUSTOM" username="gupta.anik" useOpenSSHConfig="true">
+        <option name="customName" value="Discovery" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>

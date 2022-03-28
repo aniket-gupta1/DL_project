@@ -251,7 +251,7 @@ for epoch in list(range(opt.epochIdFineTune+1, opt.nepoch) ):
         pixelObjNum = (torch.sum(segBRDFBatch ).cpu().data).item()
         pixelAllNum = (torch.sum(segAllBatch ).cpu().data).item()
         for n in range(0, len(albedoPreds) ):
-            albedoErrs.append( torch.sum( (albedoPreds[n] - <g>)
+            albedoErrs.append( torch.sum( (albedoPreds[n] - albedoBatch)
                 * (albedoPreds[n] - albedoBatch) * segBRDFBatch.expand_as(albedoBatch ) ) / pixelObjNum / 3.0 )
         for n in range(0, len(normalPreds) ):
             normalErrs.append( torch.sum( (normalPreds[n] - normalBatch)
